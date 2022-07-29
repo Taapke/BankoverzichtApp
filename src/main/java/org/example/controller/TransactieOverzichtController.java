@@ -13,6 +13,7 @@ import org.example.model.TransactieOverzicht;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Taapke Bergsma <t.bergsma@st.hanze.nl>
@@ -29,16 +30,21 @@ public class TransactieOverzichtController {
     @FXML
     private DatePicker toDatePicker;
 
-    public void showTransactieOverzicht() {
+    public void showTransactieOverzichtRegels() {
         TransactieOverzichtDAO transactieOverzichtDAO = new TransactieOverzichtDAO(App.getDbAccess());
-        LocalDate localDate = LocalDate.of(2022, 6, 2);
-        TransactieOverzicht transactieOverzicht = transactieOverzichtDAO.geefTransactiesInPeriode(localDate);
-        ArrayList<Transactie> transacties = transactieOverzicht.getTransacties();
+        TransactieOverzicht transactieOverzicht;
+        if (fromDatePicker.getValue() != null) {
+            System.out.println("not null");
+//            transactieOverzicht = transactieOverzichtDAO.geefTransactiesInPeriode(fromDatePicker.getValue());
+            transactieOverzicht = transactieOverzichtDAO.geefTransactiesInPeriode(fromDatePicker.getValue());
+        } else {
+            transactieOverzicht = transactieOverzichtDAO.geefAlleTransacties();
+        }
+        List<Transactie> transacties = transactieOverzicht.getTransacties();
         for (Transactie transactie : transacties) {
             listview.getItems().add(transactie.toString());
-        }
+        } //TODO verder met transacties ophalen vanaf gegeven datum
         App.getDbAccess().closeConnection();
-//        listview.getItems().add(selectedFile.getAbsolutePath()); //TODO dit gebruiken voor het tonen van transacties
     }
 
     public void getDates(ActionEvent event) {
@@ -46,25 +52,24 @@ public class TransactieOverzichtController {
         LocalDate toDate;
         try {
             fromDate = fromDatePicker.getValue();
+            System.out.println(fromDate.toString());
         } catch (Exception e) {
-            System.out.println("No valid date");
-            throw new RuntimeException(e);
+            clearFromDate(event);
         }
         try {
             toDate = toDatePicker.getValue();
+            System.out.println(toDate.toString());
         } catch (Exception e) {
-            System.out.println("No valid date");
-            throw new RuntimeException(e);
+            clearToDate(event);
         }
-
-        System.out.println(fromDate.toString());
-        System.out.println(toDate.toString());
-
-
-
+        System.out.println("eindde van getDates functie");
+        showTransactieOverzichtRegels();
     }
 
-
-
-
+    public void clearFromDate(ActionEvent actionEvent) {
+        fromDatePicker.setValue(null);
+    }
+    public void clearToDate(ActionEvent actionEvent) {
+        toDatePicker.setValue(null);
+    }
 }

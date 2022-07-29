@@ -50,7 +50,7 @@ public class App extends Application {
         try {
             Parent parent = fxmlLoader.load();
             TransactieOverzichtController transactieOverzichtController = fxmlLoader.getController();
-            transactieOverzichtController.showTransactieOverzicht();
+            transactieOverzichtController.showTransactieOverzichtRegels();
             scene.setRoot(parent);
         } catch (IOException e) {
             System.err.println("Unable to load TimeLog screen");

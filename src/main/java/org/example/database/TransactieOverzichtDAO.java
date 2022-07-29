@@ -67,24 +67,4 @@ public class TransactieOverzichtDAO extends AbstractDAO{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate localdate = LocalDate.parse(dateString, formatter);
         return localdate;
-    }
-
-//    public ArrayList<Afdeling> geefAfdelingen() {
-//        ArrayList<Afdeling> afdelingenLijst = new ArrayList<>();
-//        String sql = "SELECT * FROM afdeling";
-//        // Alternatief:
-//        // String sql = "SELECT afdelingsnaam, afdelingsplaats FROM afdeling;
-//        try {
-//            setupPreparedStatement(sql);
-//            ResultSet resultSet = executeSelectStatement();
-//            while (resultSet.next()) {
-//                afdelingenLijst.add(new Afdeling(
-//                        resultSet.getString("afdelingsnaam"),
-//                        resultSet.getString("afdelingsplaats")));
-//            }
-//        } catch (SQLException sqlFout) {
-//            System.out.println(sqlFout
-//            );
-//        } return afdelingenLijst;
-//    }
-}
+    }}
