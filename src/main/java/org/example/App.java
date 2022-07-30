@@ -53,7 +53,8 @@ public class App extends Application {
             transactieOverzichtController.showTransactieOverzichtRegels();
             scene.setRoot(parent);
         } catch (IOException e) {
-            System.err.println("Unable to load TimeLog screen");
+            System.err.println("Unable to load Transactieoverzicht screen");
+            System.out.println(e.getMessage());
         }
     }
 

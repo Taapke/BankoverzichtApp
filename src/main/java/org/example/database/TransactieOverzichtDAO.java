@@ -26,13 +26,14 @@ public class TransactieOverzichtDAO extends AbstractDAO{
             setupPreparedStatement(sql);
             selectTransactieOverzicht(transactieOverzicht);
         } catch (SQLException e) {
+            System.out.println("fout in geefAlleTransacties");
             System.out.println(e.getMessage());
         }
         return transactieOverzicht;
 
     }
 
-    public TransactieOverzicht geefTransactiesInPeriode(LocalDate datum) {
+    public TransactieOverzicht geefTransactiesVanafDatum(LocalDate datum) {
         String sql = "SELECT volgnummer, boekingsdatum, opdrachtgeversrekening, " +
                 "saldo_voor_mutatie, transactie_bedrag, omschrijving FROM transactie " +
                 "WHERE boekingsdatum >= ?";
@@ -40,6 +41,37 @@ public class TransactieOverzichtDAO extends AbstractDAO{
         try {
             setupPreparedStatement(sql);
             preparedStatement.setString(1, datum.toString());
+            selectTransactieOverzicht(transactieOverzicht);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return transactieOverzicht;
+    }
+
+    public TransactieOverzicht geefTransactiesTotDatum(LocalDate datum) {
+        String sql = "SELECT volgnummer, boekingsdatum, opdrachtgeversrekening, " +
+                "saldo_voor_mutatie, transactie_bedrag, omschrijving FROM transactie " +
+                "WHERE boekingsdatum <= ?";
+        TransactieOverzicht transactieOverzicht = new TransactieOverzicht();
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setString(1, datum.toString());
+            selectTransactieOverzicht(transactieOverzicht);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return transactieOverzicht;
+    }
+
+    public TransactieOverzicht geefTransactiesInPeriode(LocalDate vanafDatum, LocalDate totDatum) {
+        String sql = "SELECT volgnummer, boekingsdatum, opdrachtgeversrekening, " +
+                "saldo_voor_mutatie, transactie_bedrag, omschrijving FROM transactie " +
+                "WHERE boekingsdatum >= ? && boekingsdatum <= ?";
+        TransactieOverzicht transactieOverzicht = new TransactieOverzicht();
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setString(1, vanafDatum.toString());
+            preparedStatement.setString(2, totDatum.toString());
             selectTransactieOverzicht(transactieOverzicht);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
