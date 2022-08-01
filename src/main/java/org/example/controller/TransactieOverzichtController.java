@@ -7,12 +7,19 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.util.converter.LocalDateStringConverter;
 import org.example.App;
 import org.example.database.TransactieOverzichtDAO;
 import org.example.model.Transactie;
 import org.example.model.TransactieOverzicht;
 
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * @author Taapke Bergsma <t.bergsma@st.hanze.nl>
@@ -31,6 +38,7 @@ public class TransactieOverzichtController {
     private ComboBox<String> monthSelect;
     @FXML
     private ComboBox<String> yearSelect;
+
 
     // Gets all transactions from database via TransactieOverzichtDAO and shows these in listview
     // First executed when switched to "TransactieOverzicht" view
@@ -72,10 +80,35 @@ public class TransactieOverzichtController {
 
     // Set options in month and year dropdown menu
     public void setMonthYearSelect() {
-        monthSelect.getItems().setAll("januari", "februari", "maart", "april", "mei", "juni",
-                "juli", "augustus", "september", "november", "december");
+        monthSelect.getItems().setAll("January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December");
         yearSelect.getItems().setAll("2022", "2021", "2020"); //TODO add years dynamically (to year first transaction)
     }
+
+    public void getMonthYear(ActionEvent actionEvent) throws ParseException {
+        String monthString = monthSelect.getValue().toUpperCase();
+        Integer year = Integer.parseInt(yearSelect.getValue());
+        int monthNumber = 1;
+        try{
+            Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(monthString);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            monthNumber=cal.get(Calendar.MONTH) + 1;
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        YearMonth yearMonth = YearMonth.of(year, monthNumber);
+        int LengthOfMonth = yearMonth.lengthOfMonth();
+        LocalDate firstDayMonth = LocalDate.of(year, monthNumber, 1);
+        LocalDate lastDayMonth = LocalDate.of(year, monthNumber, LengthOfMonth);
+        showTransactieRegelsInPeriode(firstDayMonth, lastDayMonth);
+
+    }
+
+
 
     // Gets value from datePickers and starts show functions
     public void getDates(ActionEvent event) {
@@ -110,6 +143,7 @@ public class TransactieOverzichtController {
     public void clearToDate(ActionEvent actionEvent) {
         toDatePicker.setValue(null);
     }
+
 
 
 }

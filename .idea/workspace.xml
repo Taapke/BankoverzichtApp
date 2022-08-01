@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5914bce2-09c0-40a7-8491-01f7aa4d106c" name="Changes" comment="Initial commit - create project and add test home view" />
+    <list default="true" id="5914bce2-09c0-40a7-8491-01f7aa4d106c" name="Changes" comment="Initial commit - create project and add test home view">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/TransactieOverzichtController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/TransactieOverzichtController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/TransactieOverzicht.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/TransactieOverzicht.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,6 +95,7 @@
       <workItem from="1659079450058" duration="10118000" />
       <workItem from="1659109586643" duration="9590000" />
       <workItem from="1659169028002" duration="11688000" />
+      <workItem from="1659355326971" duration="4201000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit - create project and add test home view">
       <created>1658752240438</created>
