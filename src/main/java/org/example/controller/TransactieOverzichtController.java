@@ -44,7 +44,6 @@ public class TransactieOverzichtController {
     }
 
     // Get selection transactions after specific date via TransactieOverzichtDAO and shows these in listview
-    // Get selection transactions after specific date via TransactieOverzichtDAO and shows these in listview
     public void showTransactieRegelsVanafDatum(LocalDate fromDate) {
         TransactieOverzichtDAO transactieOverzichtDAO = new TransactieOverzichtDAO(App.getDbAccess());
         TransactieOverzicht transactieOverzicht = transactieOverzichtDAO.geefTransactiesVanafDatum(fromDate);
@@ -53,7 +52,7 @@ public class TransactieOverzichtController {
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }
 
-    // Shows selection transactions to specific date
+    // Get selection transactions until specific date via TransactieOverzichtDAO and shows these in listview
     public void showTransactieRegelsTotDatum(LocalDate toDate) {
         TransactieOverzichtDAO transactieOverzichtDAO = new TransactieOverzichtDAO(App.getDbAccess());
         TransactieOverzicht transactieOverzicht = transactieOverzichtDAO.geefTransactiesTotDatum(toDate);
@@ -62,6 +61,7 @@ public class TransactieOverzichtController {
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }
 
+    // Get selection transactions between specific dates via TransactieOverzichtDAO and shows these in listview
     public void showTransactieRegelsInPeriode(LocalDate fromDate, LocalDate toDate) {
         TransactieOverzichtDAO transactieOverzichtDAO = new TransactieOverzichtDAO(App.getDbAccess());
         TransactieOverzicht transactieOverzicht = transactieOverzichtDAO.geefTransactiesInPeriode(fromDate, toDate);
@@ -70,12 +70,14 @@ public class TransactieOverzichtController {
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }
 
+    // Set options in month and year dropdown menu
     public void setMonthYearSelect() {
         monthSelect.getItems().setAll("januari", "februari", "maart", "april", "mei", "juni",
                 "juli", "augustus", "september", "november", "december");
         yearSelect.getItems().setAll("2022", "2021", "2020"); //TODO add years dynamically (to year first transaction)
     }
 
+    // Gets value from datePickers and starts show functions
     public void getDates(ActionEvent event) {
         LocalDate fromDate = null;
         LocalDate toDate = null;
@@ -101,6 +103,7 @@ public class TransactieOverzichtController {
         }
     }
 
+    // When pressed sets value of date-pickers to null
     public void clearFromDate(ActionEvent actionEvent) {
         fromDatePicker.setValue(null);
     }
