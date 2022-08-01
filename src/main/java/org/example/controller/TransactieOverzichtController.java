@@ -145,5 +145,7 @@ public class TransactieOverzichtController {
     }
 
 
-
+    public void backToHomeView(ActionEvent actionEvent) {
+        App.loadHome();
+    }
 }

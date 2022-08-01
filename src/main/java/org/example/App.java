@@ -37,13 +37,13 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-//    public static void loadTransactieOverzicht() {
-//        try {
-//            Parent parent = loadFXML("TransactieOverzicht");
-//            scene.setRoot(parent);
-//        } catch (IOException e) {
-//            System.err.println("Unable to load TimeLog screen");        }
-//    }
+    public static void loadHome() {
+        try {
+            Parent parent = loadFXML("Home");
+            scene.setRoot(parent);
+        } catch (IOException e) {
+            System.err.println("Unable to load Home screen");        }
+    }
 
     public static void showTransactieOverzicht() {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/views/TransactieOverzicht.fxml"));
@@ -58,6 +58,7 @@ public class App extends Application {
             System.out.println(e.getMessage());
         }
     }
+
 
     public static DBAccess getDbAccess() {
         if (dbAccess == null) {
