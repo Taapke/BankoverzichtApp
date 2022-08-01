@@ -51,6 +51,7 @@ public class App extends Application {
             Parent parent = fxmlLoader.load();
             TransactieOverzichtController transactieOverzichtController = fxmlLoader.getController();
             transactieOverzichtController.showTransactieOverzichtRegels();
+            transactieOverzichtController.setMonthYearSelect();
             scene.setRoot(parent);
         } catch (IOException e) {
             System.err.println("Unable to load Transactieoverzicht screen");
