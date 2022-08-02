@@ -10,11 +10,8 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.controller.HomeController"
             prefHeight="400.0" prefWidth="600.0">
-    <TextField fx:id="testTextField" promptText="test text" />
-    <Button fx:id="testButton" onAction="#testTextButton" text="Klik hier om te testen." />
-    <Button fx:id="addCSVButton" onAction="#addCSVButton" text="Add csv file" />
     <Label text="bankoverzicht app" />
-    <ListView fx:id="listview" />
+    <Button fx:id="addCSVButton" onAction="#addCSVButton" text="Add csv file" />
     <Button fx:id="toTransactieOverzichtView" onAction="#showTransactieOverzichtView" text="Show transactieoverzicht" />
     <Button fx:id="toPostenView" onAction="#showPostenView" text = "Posten" />
 </VBox>

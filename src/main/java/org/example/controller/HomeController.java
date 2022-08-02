@@ -3,8 +3,6 @@ package org.example.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import org.example.App;
 import org.example.database.TransactieDAO;
@@ -18,25 +16,18 @@ import java.util.ArrayList;
 
 public class HomeController {
 
-    @FXML
-    private TextField testTextField;
+
     @FXML
     private Button testButton;
     @FXML
     private Button addCSVButton;
 
     @FXML
-    private ListView listview;
-
-    @FXML
     private Button toTransactieOverzichtView;
 
 
 
-    public void testTextButton(ActionEvent actionEvent) {
-        System.out.println(testTextField.getText());
 
-    }
 
 
     // Function to upload by user of CSV file to database
@@ -49,7 +40,7 @@ public class HomeController {
 //            listview.getItems().add(selectedFile.getAbsolutePath()); //TODO dit gebruiken voor het tonen van transacties
             TransactieDAO transactieDAO = new TransactieDAO(App.getDbAccess());
             ArrayList<String> transactieRegels = transactieDAO.geefTransacties(selectedFile.getAbsolutePath());
-            transactieDAO.saveTransactiesToDatabase(transactieRegels);
+            transactieDAO.SaveTransactiesAndTegenrekeningToDatabase(transactieRegels);
         } else {
             System.out.println("File is not valid");
         }

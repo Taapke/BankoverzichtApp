@@ -5,15 +5,10 @@ import org.example.model.Transactie;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -26,7 +21,7 @@ public class TransactieDAO extends AbstractDAO {
         super(dbAccess);
     }
 
-    public void save(Transactie transactie) {
+    public void saveTransactie(Transactie transactie) {
         String sql = "INSERT INTO transactie (volgnummer, boekingsdatum, opdrachtgeversrekening, " +
                 "saldo_voor_mutatie, transactie_bedrag, omschrijving) " +
                 "VALUES(?, ?, ?, ?, ?, ?)";
@@ -38,6 +33,18 @@ public class TransactieDAO extends AbstractDAO {
             preparedStatement.setDouble(4, transactie.getSaldoVoorMutatie());
             preparedStatement.setDouble(5, transactie.getTransactieBedrag());
             preparedStatement.setString(6, transactie.getOmschrijving());
+            executeManipulateStatement();
+        } catch (SQLException sqlException) {
+            System.err.println("An error occurred in SQL: " + sqlException.getMessage());
+        }
+    }
+
+    public void saveTegenrekening(Tegenrekening tegenrekening) {
+        String sql = "INSERT INTO tegenrekening (rekeningnummer, rekeningnaam) VALUES (?, ?);";
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setString(1, tegenrekening.getRekeningnummer());
+            preparedStatement.setString(2, tegenrekening.getRekeningnaam());
             executeManipulateStatement();
         } catch (SQLException sqlException) {
             System.err.println("An error occurred in SQL: " + sqlException.getMessage());
@@ -58,10 +65,17 @@ public class TransactieDAO extends AbstractDAO {
         return transactieRegels;
     }
 
-    public void saveTransactiesToDatabase(ArrayList<String> transactieRegels) {
+    public void SaveTransactiesAndTegenrekeningToDatabase(ArrayList<String> transactieRegels) {
         ArrayList<String> regels = transactieRegels;
+        Transactie newTransactie;
         for (String regel : regels) {
-            save(csvRegelNaarTransactie(regel));
+            newTransactie = csvRegelNaarTransactie(regel);
+            saveTransactie(newTransactie);
+            Tegenrekening tegenrekening = newTransactie.getTegenrekening();
+            if ((!tegenrekening.getRekeningnaam().equals(""))
+                    && !tegenrekening.getRekeningnaam().equals("")) {
+                saveTegenrekening(newTransactie.getTegenrekening());
+            }
         }
 
     }

@@ -20,4 +20,12 @@ public class Tegenrekening {
     public Tegenrekening() {
         this(DEFAULT_NAAM, DEFAULT_REKENINGNUMMER);
     }
+
+    public String getRekeningnaam() {
+        return rekeningnaam;
+    }
+
+    public String getRekeningnummer() {
+        return rekeningnummer;
+    }
 }
