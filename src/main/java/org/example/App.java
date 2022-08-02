@@ -2,8 +2,10 @@ package org.example;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.example.controller.PostenOverzichtController;
 import org.example.controller.TransactieOverzichtController;
@@ -21,7 +23,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("home"), 640, 480);
+
+
+        scene = new Scene(loadFXML("home"), 1000, 800);
+        stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
     }

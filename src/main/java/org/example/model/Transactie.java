@@ -64,8 +64,11 @@ public class Transactie {
         return tegenrekening;
     }
 
+
     @Override
     public String toString() {
-        return String.format("Dit is de transactie met het volgnummer %d en een transactiebedrag van %.2f", volgnummer, transactieBedrag);
+        return String.format("%s %s %s %s %s %s %s",
+                this.volgnummer, this.boekingsdatum, this.opdrachtgeverRekeningnummer, this.saldoVoorMutatie,
+                this.transactieBedrag, this.omschrijving, this.tegenrekening);
     }
 }

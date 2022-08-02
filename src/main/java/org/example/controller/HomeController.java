@@ -50,7 +50,6 @@ public class HomeController {
             TransactieDAO transactieDAO = new TransactieDAO(App.getDbAccess());
             ArrayList<String> transactieRegels = transactieDAO.geefTransacties(selectedFile.getAbsolutePath());
             transactieDAO.saveTransactiesToDatabase(transactieRegels);
-            App.getDbAccess().closeConnection();
         } else {
             System.out.println("File is not valid");
         }

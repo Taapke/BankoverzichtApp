@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.util.converter.LocalDateStringConverter;
 import org.example.App;
@@ -27,6 +28,7 @@ import java.util.Locale;
 
 public class TransactieOverzichtController {
 
+    public Label transactionColumnLabels;
     @FXML
     private ListView<Transactie> listview;
 
@@ -47,7 +49,8 @@ public class TransactieOverzichtController {
         TransactieOverzicht transactieOverzicht;
         transactieOverzicht = transactieOverzichtDAO.geefAlleTransacties();
         ObservableList<Transactie> transacties = FXCollections.observableArrayList(transactieOverzicht.getTransacties());
-        listview.setItems(transacties);
+        System.out.println("showtransactieOverzichtregels");
+        showTransactionsInListView(transacties);
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }
 
@@ -56,7 +59,7 @@ public class TransactieOverzichtController {
         TransactieOverzichtDAO transactieOverzichtDAO = new TransactieOverzichtDAO(App.getDbAccess());
         TransactieOverzicht transactieOverzicht = transactieOverzichtDAO.geefTransactiesVanafDatum(fromDate);
         ObservableList<Transactie> transacties = FXCollections.observableArrayList(transactieOverzicht.getTransacties());
-        listview.setItems(transacties);
+        showTransactionsInListView(transacties);
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }
 
@@ -65,7 +68,7 @@ public class TransactieOverzichtController {
         TransactieOverzichtDAO transactieOverzichtDAO = new TransactieOverzichtDAO(App.getDbAccess());
         TransactieOverzicht transactieOverzicht = transactieOverzichtDAO.geefTransactiesTotDatum(toDate);
         ObservableList<Transactie> transacties = FXCollections.observableArrayList(transactieOverzicht.getTransacties());
-        listview.setItems(transacties);
+        showTransactionsInListView(transacties);
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }
 
@@ -74,8 +77,15 @@ public class TransactieOverzichtController {
         TransactieOverzichtDAO transactieOverzichtDAO = new TransactieOverzichtDAO(App.getDbAccess());
         TransactieOverzicht transactieOverzicht = transactieOverzichtDAO.geefTransactiesInPeriode(fromDate, toDate);
         ObservableList<Transactie> transacties = FXCollections.observableArrayList(transactieOverzicht.getTransacties());
-        listview.setItems(transacties);
+        showTransactionsInListView(transacties);
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
+    }
+
+    public void showTransactionsInListView(ObservableList<Transactie> transacties){
+        transactionColumnLabels.setText(String.format("%s %s %s %s %s %s %s",
+                "volgnummer", "boekingsdatum", "opdrachtgeverRekeningnummer", "saldoVoorMutatie",
+                "transactieBedrag", "omschrijving", "tegenrekening"));
+        listview.setItems(transacties);
     }
 
     // Set options in month and year dropdown menu
