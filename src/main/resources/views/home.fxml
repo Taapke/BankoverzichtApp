@@ -16,4 +16,5 @@
     <Label text="bankoverzicht app" />
     <ListView fx:id="listview" />
     <Button fx:id="toTransactieOverzichtView" onAction="#showTransactieOverzichtView" text="Show transactieoverzicht" />
+    <Button fx:id="toPostenView" onAction="#showPostenView" text = "Posten" />
 </VBox>
