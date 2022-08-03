@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="5914bce2-09c0-40a7-8491-01f7aa4d106c" name="Changes" comment="Initial commit - create project and add test home view">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/database/TransactieDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/database/TransactieDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Tegenrekening.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Tegenrekening.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/home.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/TransactieOverzichtController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/TransactieOverzichtController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/TransactieOverzicht.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/TransactieOverzicht.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +97,8 @@
       <workItem from="1659109586643" duration="9590000" />
       <workItem from="1659169028002" duration="11688000" />
       <workItem from="1659355326971" duration="5263000" />
-      <workItem from="1659440434632" duration="7111000" />
+      <workItem from="1659440434632" duration="7492000" />
+      <workItem from="1659521444852" duration="6128000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit - create project and add test home view">
       <created>1658752240438</created>

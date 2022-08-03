@@ -1,5 +1,7 @@
 package org.example.model;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  * @author Taapke Bergsma <t.bergsma@st.hanze.nl>
  */
@@ -22,5 +24,9 @@ public class Post {
 
     public String getNaam() {
         return naam;
+    }
+
+    public SimpleStringProperty naamProperty() {
+        return new SimpleStringProperty((String) naam);
     }
 }

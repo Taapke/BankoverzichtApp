@@ -1,18 +1,19 @@
 package org.example.controller;
 
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.converter.LocalDateStringConverter;
 import org.example.App;
+import org.example.database.PostDAO;
+import org.example.database.PostenOverzichtDAO;
 import org.example.database.TransactieOverzichtDAO;
-import org.example.model.Transactie;
-import org.example.model.TransactieOverzicht;
+import org.example.model.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,7 +29,19 @@ import java.util.Locale;
 
 public class TransactieOverzichtController {
 
+
+
+
+    public TableView<Post> transactieTableView;
+    public TableColumn boekingDatumColumn;
+    public TableColumn saldoVoorMutatieColumn;
+    public TableColumn transactieBedragColumn;
+    public TableColumn omschrijvingColumn;
+    public TableColumn postColumn;
+
+
     public Label transactionColumnLabels;
+
     @FXML
     private ListView<Transactie> listview;
 
@@ -42,6 +55,7 @@ public class TransactieOverzichtController {
     private ComboBox<String> yearSelect;
 
 
+
     // Gets all transactions from database via TransactieOverzichtDAO and shows these in listview
     // First executed when switched to "TransactieOverzicht" view
     public void showTransactieOverzichtRegels() {
@@ -49,7 +63,7 @@ public class TransactieOverzichtController {
         TransactieOverzicht transactieOverzicht;
         transactieOverzicht = transactieOverzichtDAO.geefAlleTransacties();
         ObservableList<Transactie> transacties = FXCollections.observableArrayList(transactieOverzicht.getTransacties());
-        System.out.println("showtransactieOverzichtregels");
+
         showTransactionsInListView(transacties);
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }

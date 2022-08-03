@@ -32,6 +32,16 @@
 
 <!--    // List of transactions (all or selection)-->
     <Label fx:id="transactionColumnLabels"/>
+    <TableView fx:id="transactieTableView"  layoutX="35.0" layoutY="28.0" prefHeight="200.0" prefWidth="227.0">
+        <columns>
+            <TableColumn prefWidth="75.0" text="Datum" fx:id="boekingDatumColumn" />
+            <TableColumn prefWidth="75.0" text="Saldo voor mutatie" fx:id="saldoVoorMutatieColumn" />
+            <TableColumn prefWidth="75.0" text="Transactiebedrag" fx:id="transactieBedragColumn" />
+            <TableColumn prefWidth="75.0" text="Omschrijving" fx:id="omschrijvingColumn" />
+<!--            <TableColumn prefWidth="75.0" text="Tegenrekening" fx:id="tegenrekening" />-->
+            <TableColumn prefWidth="75.0" text="Post" fx:id="postColumn" />
+        </columns>
+    </TableView>
     <ListView fx:id="listview" />
 
 
