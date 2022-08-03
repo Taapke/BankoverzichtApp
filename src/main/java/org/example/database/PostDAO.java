@@ -15,7 +15,7 @@ public class PostDAO extends AbstractDAO{
     }
 
     public void savePost(Post post) {
-        String sql = "INSERT INTO posten (naam) VALUES (?);";
+        String sql = "INSERT INTO post (naam) VALUES (?);";
         try {
             setupPreparedStatement(sql);
             preparedStatement.setString(1, post.getNaam());
