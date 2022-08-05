@@ -56,7 +56,7 @@ public class TransactieOverzichtController {
 
 
 
-    private ObservableList<DisplayTransaction> createDisplayTransactionList(ObservableList<Transactie> transacties) {
+    private ObservableList<DisplayTransaction> createDisplayTransactionList(ObservableList<Transactie> transacties, ObservableList<Post> posten) {
         ObservableList<DisplayTransaction> observableList = FXCollections.observableArrayList();
         for (Transactie transactie : transacties) {
             LocalDate boekingDatum = transactie.getBoekingsdatum();
@@ -78,7 +78,12 @@ public class TransactieOverzichtController {
         ObservableList<Transactie> transacties = FXCollections.observableArrayList(transactieOverzicht.getTransacties());
         showTransactionsInListView(transacties);
 
-        ObservableList<DisplayTransaction> observableList = createDisplayTransactionList(transacties);
+        PostenOverzichtDAO postenOverzichtDAO = new PostenOverzichtDAO(App.getDbAccess());
+        PostenOverzicht postenOverzicht = postenOverzichtDAO.geefAllePosten();
+        ObservableList<Post> posten = FXCollections.observableArrayList(postenOverzicht.getPostList());
+
+
+        ObservableList<DisplayTransaction> observableList = createDisplayTransactionList(transacties, posten);
         transactieTableView.setItems(observableList);
         boekingDatumColumn.setCellValueFactory(new PropertyValueFactory<>("BoekingDatumSSP"));
         saldoVoorMutatieColumn.setCellValueFactory(new PropertyValueFactory<>("SaldoVoorMutatieSSP"));

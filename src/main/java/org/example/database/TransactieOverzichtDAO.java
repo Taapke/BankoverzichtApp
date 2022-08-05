@@ -19,8 +19,9 @@ public class TransactieOverzichtDAO extends AbstractDAO{
     }
 
     public TransactieOverzicht geefAlleTransacties() {
-        String sql = "SELECT volgnummer, boekingsdatum, opdrachtgeversrekening, " +
-                "saldo_voor_mutatie, transactie_bedrag, omschrijving FROM transactie ";
+        String sql = "SELECT transactie.volgnummer, boekingsdatum, opdrachtgeversrekening, " +
+                "saldo_voor_mutatie, transactie_bedrag, omschrijving FROM transactie " +
+                "LEFT JOIN transactiepost ON transactie.volgnummer = transactiepost.volgnummer;"; //TODO hier aparte DAO voor maken? displaytransaction?
         TransactieOverzicht transactieOverzicht = new TransactieOverzicht();
         try {
             setupPreparedStatement(sql);
@@ -34,7 +35,7 @@ public class TransactieOverzichtDAO extends AbstractDAO{
     }
 
     public TransactieOverzicht geefTransactiesVanafDatum(LocalDate datum) {
-        String sql = "SELECT volgnummer, boekingsdatum, opdrachtgeversrekening, " +
+        String sql = "SELECT transactie.volgnummer, boekingsdatum, opdrachtgeversrekening, " +
                 "saldo_voor_mutatie, transactie_bedrag, omschrijving FROM transactie " +
                 "WHERE boekingsdatum >= ?";
         TransactieOverzicht transactieOverzicht = new TransactieOverzicht();
@@ -85,7 +86,7 @@ public class TransactieOverzichtDAO extends AbstractDAO{
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
                 transactieOverzicht.addTransactie(new Transactie(
-                        resultSet.getInt("volgnummer"),
+                        resultSet.getInt("transactie.volgnummer"),
                         LocalDate.parse(resultSet.getString("boekingsdatum"), formatter),
                         resultSet.getString("opdrachtgeversrekening"),
                         resultSet.getDouble("saldo_voor_mutatie"),
