@@ -21,7 +21,7 @@ public class PostenOverzichtDAO extends AbstractDAO {
     }
 
     public PostenOverzicht geefAllePosten() {
-        String sql = "SELECT naam FROM Posten";
+        String sql = "SELECT naam FROM Post";
         PostenOverzicht postenOverzicht = new PostenOverzicht();
         try {
             setupPreparedStatement(sql);

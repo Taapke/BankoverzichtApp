@@ -1,7 +1,11 @@
 package org.example.model;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+
+import java.time.LocalDate;
 
 /**
  * @author Taapke Bergsma <t.bergsma@st.hanze.nl>
@@ -10,20 +14,20 @@ import javafx.beans.property.SimpleStringProperty;
  */
 
 public class DisplayTransaction {
-    private SimpleStringProperty boekingDatumSSP;
-    private SimpleStringProperty saldoVoorMutatieSSP;
-    private SimpleStringProperty transactieBedragSSP;
+    private ObjectProperty<LocalDate> boekingDatumSSP;
+    private SimpleDoubleProperty saldoVoorMutatieSSP;
+    private SimpleDoubleProperty transactieBedragSSP;
     private SimpleStringProperty omschrijvingSSP;
     private SimpleStringProperty postSSP;
 
-    public DisplayTransaction(SimpleStringProperty boekingDatumSSP, SimpleStringProperty saldoVoorMutatieSSP,
-                              SimpleStringProperty transactieBedragSSP, SimpleStringProperty omschrijvingSSP,
-                              SimpleStringProperty postSSP) {
-        this.boekingDatumSSP = boekingDatumSSP;
-        this.saldoVoorMutatieSSP = saldoVoorMutatieSSP;
-        this.transactieBedragSSP = transactieBedragSSP;
-        this.omschrijvingSSP = omschrijvingSSP;
-        this.postSSP = postSSP;
+    public DisplayTransaction(LocalDate boekingDatumSSP, Double saldoVoorMutatieSSP,
+                              Double transactieBedragSSP, String omschrijvingSSP,
+                              String postSSP) {
+        this.boekingDatumSSP = new SimpleObjectProperty<>(boekingDatumSSP);
+        this.saldoVoorMutatieSSP = new SimpleDoubleProperty(saldoVoorMutatieSSP);
+        this.transactieBedragSSP = new SimpleDoubleProperty(transactieBedragSSP);
+        this.omschrijvingSSP = new SimpleStringProperty(omschrijvingSSP);
+        this.postSSP = new SimpleStringProperty(postSSP);
     }
 
 
@@ -31,39 +35,39 @@ public class DisplayTransaction {
     public DisplayTransaction() {
     }
 
-    public String getBoekingDatumSSP() {
+    public LocalDate getBoekingDatumSSP() {
         return boekingDatumSSP.get();
     }
 
-    public SimpleStringProperty boekingDatumSSPProperty() {
+    public ObjectProperty<LocalDate> boekingDatumSPProperty() {
         return boekingDatumSSP;
     }
 
-    public void setBoekingDatumSSP(String boekingDatumSSP) {
+    public void setBoekingDatumSSP(LocalDate boekingDatumSSP) {
         this.boekingDatumSSP.set(boekingDatumSSP);
     }
 
-    public String getSaldoVoorMutatieSSP() {
+    public Double getSaldoVoorMutatieSSP() {
         return saldoVoorMutatieSSP.get();
     }
 
-    public SimpleStringProperty saldoVoorMutatieSSPProperty() {
+    public SimpleDoubleProperty saldoVoorMutatieSPProperty() {
         return saldoVoorMutatieSSP;
     }
 
-    public void setSaldoVoorMutatieSSP(String saldoVoorMutatieSSP) {
+    public void setSaldoVoorMutatieSSP(Double saldoVoorMutatieSSP) {
         this.saldoVoorMutatieSSP.set(saldoVoorMutatieSSP);
     }
 
-    public String getTransactieBedragSSP() {
+    public Double getTransactieBedragSSP() {
         return transactieBedragSSP.get();
     }
 
-    public SimpleStringProperty transactieBedragSSPProperty() {
+    public SimpleDoubleProperty transactieBedragSPProperty() {
         return transactieBedragSSP;
     }
 
-    public void setTransactieBedragSSP(String transactieBedragSSP) {
+    public void setTransactieBedragSSP(Double transactieBedragSSP) {
         this.transactieBedragSSP.set(transactieBedragSSP);
     }
 
@@ -71,7 +75,7 @@ public class DisplayTransaction {
         return omschrijvingSSP.get();
     }
 
-    public SimpleStringProperty omschrijvingSSPProperty() {
+    public SimpleStringProperty omschrijvingSPProperty() {
         return omschrijvingSSP;
     }
 
@@ -83,7 +87,7 @@ public class DisplayTransaction {
         return postSSP.get();
     }
 
-    public SimpleStringProperty postSSPProperty() {
+    public SimpleStringProperty postSPProperty() {
         return postSSP;
     }
 

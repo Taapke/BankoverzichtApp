@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
  */
 
 public class Post {
-    String naam;
+    private String naam;
 
     public Post(String naam) {
         this.naam = naam;

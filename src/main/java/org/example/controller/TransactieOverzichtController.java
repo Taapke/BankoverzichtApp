@@ -32,12 +32,12 @@ public class TransactieOverzichtController {
 
 
 
-    public TableView<Post> transactieTableView;
-    public TableColumn boekingDatumColumn;
-    public TableColumn saldoVoorMutatieColumn;
-    public TableColumn transactieBedragColumn;
-    public TableColumn omschrijvingColumn;
-    public TableColumn postColumn;
+    public TableView<DisplayTransaction> transactieTableView;
+    public TableColumn<DisplayTransaction, String>  boekingDatumColumn;
+    public TableColumn<DisplayTransaction, String>  saldoVoorMutatieColumn;
+    public TableColumn<DisplayTransaction, String>  transactieBedragColumn;
+    public TableColumn<DisplayTransaction, String>  omschrijvingColumn;
+    public TableColumn<DisplayTransaction, String> postColumn;
 
 
     public Label transactionColumnLabels;
@@ -56,6 +56,19 @@ public class TransactieOverzichtController {
 
 
 
+    private ObservableList<DisplayTransaction> createDisplayTransactionList(ObservableList<Transactie> transacties) {
+        ObservableList<DisplayTransaction> observableList = FXCollections.observableArrayList();
+        for (Transactie transactie : transacties) {
+            LocalDate boekingDatum = transactie.getBoekingsdatum();
+            Double saldoVoorMutatie = transactie.getSaldoVoorMutatie();
+            Double transactieBedrag = transactie.getTransactieBedrag();
+            String omschrijving = transactie.getOmschrijving();
+            String post = "default post naam";
+            observableList.add(new DisplayTransaction(boekingDatum, saldoVoorMutatie, transactieBedrag, omschrijving, post));
+        }
+        return observableList;
+
+    }
     // Gets all transactions from database via TransactieOverzichtDAO and shows these in listview
     // First executed when switched to "TransactieOverzicht" view
     public void showTransactieOverzichtRegels() {
@@ -63,8 +76,15 @@ public class TransactieOverzichtController {
         TransactieOverzicht transactieOverzicht;
         transactieOverzicht = transactieOverzichtDAO.geefAlleTransacties();
         ObservableList<Transactie> transacties = FXCollections.observableArrayList(transactieOverzicht.getTransacties());
-
         showTransactionsInListView(transacties);
+
+        ObservableList<DisplayTransaction> observableList = createDisplayTransactionList(transacties);
+        transactieTableView.setItems(observableList);
+        boekingDatumColumn.setCellValueFactory(new PropertyValueFactory<>("BoekingDatumSSP"));
+        saldoVoorMutatieColumn.setCellValueFactory(new PropertyValueFactory<>("SaldoVoorMutatieSSP"));
+        transactieBedragColumn.setCellValueFactory(new PropertyValueFactory<>("TransactieBedragSSP"));
+        omschrijvingColumn.setCellValueFactory(new PropertyValueFactory<>("OmschrijvingSSP"));
+        postColumn.setCellValueFactory(new PropertyValueFactory<>("PostSSP"));
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }
 
