@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * @author Taapke Bergsma <t.bergsma@st.hanze.nl>
+ * //TODO heb ik deze DAO nog nodig nu we displayTransactionDAO hebben?
  */
 
 public class TransactieOverzichtDAO extends AbstractDAO{
@@ -20,8 +21,7 @@ public class TransactieOverzichtDAO extends AbstractDAO{
 
     public TransactieOverzicht geefAlleTransacties() {
         String sql = "SELECT transactie.volgnummer, boekingsdatum, opdrachtgeversrekening, " +
-                "saldo_voor_mutatie, transactie_bedrag, omschrijving FROM transactie " +
-                "LEFT JOIN transactiepost ON transactie.volgnummer = transactiepost.volgnummer;"; //TODO hier aparte DAO voor maken? displaytransaction?
+                "saldo_voor_mutatie, transactie_bedrag, omschrijving FROM transactie;";
         TransactieOverzicht transactieOverzicht = new TransactieOverzicht();
         try {
             setupPreparedStatement(sql);

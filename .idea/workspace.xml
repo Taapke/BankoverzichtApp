@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/TransactieOverzichtController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/TransactieOverzichtController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/database/TransactieOverzichtDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/database/TransactieOverzichtDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/TransactieOverzicht.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/TransactieOverzicht.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +100,7 @@
       <workItem from="1659440434632" duration="7492000" />
       <workItem from="1659521444852" duration="7348000" />
       <workItem from="1659601167881" duration="4108000" />
-      <workItem from="1659688211403" duration="2551000" />
+      <workItem from="1659688211403" duration="5624000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit - create project and add test home view">
       <created>1658752240438</created>

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author Taapke Bergsma <t.bergsma@st.hanze.nl>
  */
 
-public class TransactieOverzicht {
+public class TransactieOverzicht { // TODO Zijn deze overzichten nodig?
     private ArrayList<Transactie> transacties = new ArrayList<>();
     private double saldo;
 

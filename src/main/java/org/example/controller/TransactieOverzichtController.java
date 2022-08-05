@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.converter.LocalDateStringConverter;
 import org.example.App;
+import org.example.database.DisplayTransactionDAO;
 import org.example.database.PostDAO;
 import org.example.database.PostenOverzichtDAO;
 import org.example.database.TransactieOverzichtDAO;
@@ -19,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -56,17 +58,23 @@ public class TransactieOverzichtController {
 
 
 
-    private ObservableList<DisplayTransaction> createDisplayTransactionList(ObservableList<Transactie> transacties, ObservableList<Post> posten) {
+    private void populateDisplayTransactionTable(ObservableList<DisplayTransaction> displayTransactions) {
         ObservableList<DisplayTransaction> observableList = FXCollections.observableArrayList();
-        for (Transactie transactie : transacties) {
-            LocalDate boekingDatum = transactie.getBoekingsdatum();
-            Double saldoVoorMutatie = transactie.getSaldoVoorMutatie();
-            Double transactieBedrag = transactie.getTransactieBedrag();
-            String omschrijving = transactie.getOmschrijving();
-            String post = "default post naam";
+        for (DisplayTransaction displayTransaction : displayTransactions) {
+            LocalDate boekingDatum = displayTransaction.getBoekingDatumSSP();
+            Double saldoVoorMutatie = displayTransaction.getSaldoVoorMutatieSSP();
+            Double transactieBedrag = displayTransaction.getTransactieBedragSSP();
+            String omschrijving = displayTransaction.getOmschrijvingSSP();
+            String post = displayTransaction.getPostSSP();
             observableList.add(new DisplayTransaction(boekingDatum, saldoVoorMutatie, transactieBedrag, omschrijving, post));
         }
-        return observableList;
+
+        transactieTableView.setItems(observableList);
+        boekingDatumColumn.setCellValueFactory(new PropertyValueFactory<>("BoekingDatumSSP"));
+        saldoVoorMutatieColumn.setCellValueFactory(new PropertyValueFactory<>("SaldoVoorMutatieSSP"));
+        transactieBedragColumn.setCellValueFactory(new PropertyValueFactory<>("TransactieBedragSSP"));
+        omschrijvingColumn.setCellValueFactory(new PropertyValueFactory<>("OmschrijvingSSP"));
+        postColumn.setCellValueFactory(new PropertyValueFactory<>("PostSSP"));
 
     }
     // Gets all transactions from database via TransactieOverzichtDAO and shows these in listview
@@ -83,40 +91,39 @@ public class TransactieOverzichtController {
         ObservableList<Post> posten = FXCollections.observableArrayList(postenOverzicht.getPostList());
 
 
-        ObservableList<DisplayTransaction> observableList = createDisplayTransactionList(transacties, posten);
-        transactieTableView.setItems(observableList);
-        boekingDatumColumn.setCellValueFactory(new PropertyValueFactory<>("BoekingDatumSSP"));
-        saldoVoorMutatieColumn.setCellValueFactory(new PropertyValueFactory<>("SaldoVoorMutatieSSP"));
-        transactieBedragColumn.setCellValueFactory(new PropertyValueFactory<>("TransactieBedragSSP"));
-        omschrijvingColumn.setCellValueFactory(new PropertyValueFactory<>("OmschrijvingSSP"));
-        postColumn.setCellValueFactory(new PropertyValueFactory<>("PostSSP"));
+        DisplayTransactionDAO displayTransactionDAO = new DisplayTransactionDAO(App.getDbAccess());
+        ArrayList<DisplayTransaction> displayTransactionOverzicht = displayTransactionDAO.geefAlleDisplayTransacties();
+        ObservableList<DisplayTransaction> displayTransactions = FXCollections.observableArrayList(displayTransactionOverzicht);
+        populateDisplayTransactionTable(displayTransactions);
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }
 
     // Get selection transactions after specific date via TransactieOverzichtDAO and shows these in listview
     public void showTransactieRegelsVanafDatum(LocalDate fromDate) {
-        TransactieOverzichtDAO transactieOverzichtDAO = new TransactieOverzichtDAO(App.getDbAccess());
-        TransactieOverzicht transactieOverzicht = transactieOverzichtDAO.geefTransactiesVanafDatum(fromDate);
-        ObservableList<Transactie> transacties = FXCollections.observableArrayList(transactieOverzicht.getTransacties());
-        showTransactionsInListView(transacties);
+        DisplayTransactionDAO displayTransactionDAO = new DisplayTransactionDAO(App.getDbAccess());
+        ArrayList<DisplayTransaction> displayTransactionOverzicht = displayTransactionDAO.geefDisplayTransactionVanafDatum(fromDate);
+        ObservableList<DisplayTransaction> displayTransactions = FXCollections.observableArrayList(displayTransactionOverzicht);
+        populateDisplayTransactionTable(displayTransactions);
+
+
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }
 
     // Get selection transactions until specific date via TransactieOverzichtDAO and shows these in listview
     public void showTransactieRegelsTotDatum(LocalDate toDate) {
-        TransactieOverzichtDAO transactieOverzichtDAO = new TransactieOverzichtDAO(App.getDbAccess());
-        TransactieOverzicht transactieOverzicht = transactieOverzichtDAO.geefTransactiesTotDatum(toDate);
-        ObservableList<Transactie> transacties = FXCollections.observableArrayList(transactieOverzicht.getTransacties());
-        showTransactionsInListView(transacties);
+        DisplayTransactionDAO displayTransactionDAO = new DisplayTransactionDAO(App.getDbAccess());
+        ArrayList<DisplayTransaction> displayTransactionOverzicht = displayTransactionDAO.geefDisplayTransactionTotDatum(toDate);
+        ObservableList<DisplayTransaction> displayTransactions = FXCollections.observableArrayList(displayTransactionOverzicht);
+        populateDisplayTransactionTable(displayTransactions);
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }
 
     // Get selection transactions between specific dates via TransactieOverzichtDAO and shows these in listview
     public void showTransactieRegelsInPeriode(LocalDate fromDate, LocalDate toDate) {
-        TransactieOverzichtDAO transactieOverzichtDAO = new TransactieOverzichtDAO(App.getDbAccess());
-        TransactieOverzicht transactieOverzicht = transactieOverzichtDAO.geefTransactiesInPeriode(fromDate, toDate);
-        ObservableList<Transactie> transacties = FXCollections.observableArrayList(transactieOverzicht.getTransacties());
-        showTransactionsInListView(transacties);
+        DisplayTransactionDAO displayTransactionDAO = new DisplayTransactionDAO(App.getDbAccess());
+        ArrayList<DisplayTransaction> displayTransactionOverzicht = displayTransactionDAO.geefDisplayTransactionsInPeriode(fromDate, toDate);
+        ObservableList<DisplayTransaction> displayTransactions = FXCollections.observableArrayList(displayTransactionOverzicht);
+        populateDisplayTransactionTable(displayTransactions);
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }
 
