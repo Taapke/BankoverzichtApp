@@ -40,6 +40,7 @@
             <TableColumn prefWidth="75.0" text="Omschrijving" fx:id="omschrijvingColumn" />
 <!--            <TableColumn prefWidth="75.0" text="Tegenrekening" fx:id="tegenrekening" />-->
             <TableColumn prefWidth="75.0" text="Post" fx:id="postColumn" />
+            <TableColumn prefWidth="75.0" text="Edit post" fx:id="editPostColumn" />
         </columns>
     </TableView>
     <ListView fx:id="listview" />

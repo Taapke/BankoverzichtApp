@@ -1,13 +1,16 @@
 package org.example.controller;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import javafx.util.converter.LocalDateStringConverter;
 import org.example.App;
 import org.example.database.DisplayTransactionDAO;
@@ -19,7 +22,6 @@ import org.example.model.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,20 +34,20 @@ import java.util.Locale;
 public class TransactieOverzichtController {
 
 
-
-
     public TableView<DisplayTransaction> transactieTableView;
     public TableColumn<DisplayTransaction, String>  boekingDatumColumn;
     public TableColumn<DisplayTransaction, String>  saldoVoorMutatieColumn;
     public TableColumn<DisplayTransaction, String>  transactieBedragColumn;
     public TableColumn<DisplayTransaction, String>  omschrijvingColumn;
     public TableColumn<DisplayTransaction, String> postColumn;
+    public TableColumn<DisplayTransaction, DisplayTransaction> editPostColumn;
+
+
+
+
 
 
     public Label transactionColumnLabels;
-
-    @FXML
-    private ListView<Transactie> listview;
 
     @FXML
     private DatePicker fromDatePicker;
@@ -55,7 +57,6 @@ public class TransactieOverzichtController {
     private ComboBox<String> monthSelect;
     @FXML
     private ComboBox<String> yearSelect;
-
 
 
     private void populateDisplayTransactionTable(ObservableList<DisplayTransaction> displayTransactions) {
@@ -68,30 +69,24 @@ public class TransactieOverzichtController {
             String post = displayTransaction.getPostSSP();
             observableList.add(new DisplayTransaction(boekingDatum, saldoVoorMutatie, transactieBedrag, omschrijving, post));
         }
-
         transactieTableView.setItems(observableList);
         boekingDatumColumn.setCellValueFactory(new PropertyValueFactory<>("BoekingDatumSSP"));
         saldoVoorMutatieColumn.setCellValueFactory(new PropertyValueFactory<>("SaldoVoorMutatieSSP"));
         transactieBedragColumn.setCellValueFactory(new PropertyValueFactory<>("TransactieBedragSSP"));
         omschrijvingColumn.setCellValueFactory(new PropertyValueFactory<>("OmschrijvingSSP"));
         postColumn.setCellValueFactory(new PropertyValueFactory<>("PostSSP"));
+        editPostColumn.setCellValueFactory(new PropertyValueFactory<>("button"));
+
 
     }
+
+
+
+
     // Gets all transactions from database via TransactieOverzichtDAO and shows these in listview
     // First executed when switched to "TransactieOverzicht" view
     public void showTransactieOverzichtRegels() {
-        TransactieOverzichtDAO transactieOverzichtDAO = new TransactieOverzichtDAO(App.getDbAccess());
-        TransactieOverzicht transactieOverzicht;
-        transactieOverzicht = transactieOverzichtDAO.geefAlleTransacties();
-        ObservableList<Transactie> transacties = FXCollections.observableArrayList(transactieOverzicht.getTransacties());
-        showTransactionsInListView(transacties);
-
-        PostenOverzichtDAO postenOverzichtDAO = new PostenOverzichtDAO(App.getDbAccess());
-        PostenOverzicht postenOverzicht = postenOverzichtDAO.geefAllePosten();
-        ObservableList<Post> posten = FXCollections.observableArrayList(postenOverzicht.getPostList());
-
-
-        DisplayTransactionDAO displayTransactionDAO = new DisplayTransactionDAO(App.getDbAccess());
+          DisplayTransactionDAO displayTransactionDAO = new DisplayTransactionDAO(App.getDbAccess());
         ArrayList<DisplayTransaction> displayTransactionOverzicht = displayTransactionDAO.geefAlleDisplayTransacties();
         ObservableList<DisplayTransaction> displayTransactions = FXCollections.observableArrayList(displayTransactionOverzicht);
         populateDisplayTransactionTable(displayTransactions);
@@ -127,12 +122,7 @@ public class TransactieOverzichtController {
 //        App.getDbAccess().closeConnection(); //TODO close connection somewhere else
     }
 
-    public void showTransactionsInListView(ObservableList<Transactie> transacties){
-        transactionColumnLabels.setText(String.format("%s %s %s %s %s %s %s",
-                "volgnummer", "boekingsdatum", "opdrachtgeverRekeningnummer", "saldoVoorMutatie",
-                "transactieBedrag", "omschrijving", "tegenrekening"));
-        listview.setItems(transacties);
-    }
+
 
     // Set options in month and year dropdown menu
     public void setMonthYearSelect() {
@@ -163,8 +153,6 @@ public class TransactieOverzichtController {
         showTransactieRegelsInPeriode(firstDayMonth, lastDayMonth);
 
     }
-
-
 
     // Gets value from datePickers and starts show functions
     public void getDates(ActionEvent event) {
@@ -200,7 +188,7 @@ public class TransactieOverzichtController {
         toDatePicker.setValue(null);
     }
 
-
+    // Back to home view
     public void backToHomeView(ActionEvent actionEvent) {
         App.loadHome(); //TODO Perhaps close connection here
     }

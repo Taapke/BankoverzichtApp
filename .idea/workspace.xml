@@ -7,8 +7,8 @@
     <list default="true" id="5914bce2-09c0-40a7-8491-01f7aa4d106c" name="Changes" comment="Initial commit - create project and add test home view">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/TransactieOverzichtController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/TransactieOverzichtController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/database/TransactieOverzichtDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/database/TransactieOverzichtDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/TransactieOverzicht.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/TransactieOverzicht.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/DisplayTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/DisplayTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/TransactieOverzicht.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/TransactieOverzicht.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +100,9 @@
       <workItem from="1659440434632" duration="7492000" />
       <workItem from="1659521444852" duration="7348000" />
       <workItem from="1659601167881" duration="4108000" />
-      <workItem from="1659688211403" duration="5624000" />
+      <workItem from="1659688211403" duration="7554000" />
+      <workItem from="1660479162044" duration="1437000" />
+      <workItem from="1660738657459" duration="2107000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit - create project and add test home view">
       <created>1658752240438</created>

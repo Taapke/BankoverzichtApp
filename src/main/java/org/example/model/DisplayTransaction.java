@@ -4,6 +4,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Button;
 
 import java.time.LocalDate;
 
@@ -19,6 +20,7 @@ public class DisplayTransaction {
     private SimpleDoubleProperty transactieBedragSSP;
     private SimpleStringProperty omschrijvingSSP;
     private SimpleStringProperty postSSP;
+    private Button button;
 
     public DisplayTransaction(LocalDate boekingDatumSSP, Double saldoVoorMutatieSSP,
                               Double transactieBedragSSP, String omschrijvingSSP,
@@ -28,9 +30,8 @@ public class DisplayTransaction {
         this.transactieBedragSSP = new SimpleDoubleProperty(transactieBedragSSP);
         this.omschrijvingSSP = new SimpleStringProperty(omschrijvingSSP);
         this.postSSP = new SimpleStringProperty(postSSP);
+        this.button = new Button("edit post");
     }
-
-
 
     public DisplayTransaction() {
     }
@@ -93,5 +94,13 @@ public class DisplayTransaction {
 
     public void setPostSSP(String postSSP) {
         this.postSSP.set(postSSP);
+    }
+
+    public Button getButton() {
+        return button;
+    }
+
+    public void setButton(Button button) {
+        this.button = button;
     }
 }
